@@ -1,6 +1,6 @@
 package com.example.aviasales.controller;
 
-import com.example.aviasales.dao.InMemoryUserDao;
+import com.example.aviasales.dao.impl.InMemoryUserDao;
 import com.example.aviasales.entity.User;
 import com.example.aviasales.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,16 +32,16 @@ public class UserController {
     }
     @GetMapping("/{username}")
     public ResponseEntity <User> findByUsername(@PathVariable String username){
-        Optional<User> byUsername= inMemoryUserDao.findByUsername(username);
-        if (byUsername.isPresent()){
-            return ResponseEntity.ok(byUsername.get());
+        User byUsername = inMemoryUserDao.findByUsername(username);
+        if (byUsername!=null){
+            return ResponseEntity.ok(byUsername);
         }
         return ResponseEntity.badRequest().build();
     }
     public ResponseEntity <User> findByEmail (@PathVariable String email){
-        Optional<User> byEmail= inMemoryUserDao.findByEmail(email);
-        if (byEmail.isPresent()){
-            return ResponseEntity.ok(byEmail.get());
+        User byEmail= inMemoryUserDao.findByEmail(email);
+        if (byEmail !=null){
+            return ResponseEntity.ok(byEmail);
         }
         return ResponseEntity.badRequest().build();
     }
